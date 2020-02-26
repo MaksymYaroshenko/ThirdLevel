@@ -1,0 +1,40 @@
+﻿@model MicroserviceForWorkWithClient.Models.City
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="container">
+        <div class="form-group col-md-offset-3 col-md-9">
+            <h2>Weather Forecast for @Model.Name</h2>
+            <div class="col-md-12">
+                <label asp-for="Temp"></label>
+                <span class="badge badge-secondary">@Model.Temp °C</span>
+            </div>
+            <div class="col-md-12">
+                <label asp-for="Humidity"></label>
+                <span class="badge badge-secondary">@Model.Humidity %</span>
+            </div>
+            <div class="col-md-12">
+                <label asp-for="Pressure"></label>
+                <span class="badge badge-secondary">@Model.Pressure Hpa</span>
+            </div>
+            <div class="col-md-12">
+                <label asp-for="Wind"></label>
+                <span class="badge badge-secondary">@Model.Wind Km/h</span>
+            </div>
+            <div class="col-md-12">
+                <label asp-for="Weather"></label>
+                <span class="badge badge-secondary">@Model.Weather</span>
+            </div>
+            <div class="container">
+                <div class="form-group col-md-offset-3 col-md-5">
+                    <form method="get">
+                        <button asp-controller="City" asp-action="SearchCity" class="btn btn-primary">Return</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
