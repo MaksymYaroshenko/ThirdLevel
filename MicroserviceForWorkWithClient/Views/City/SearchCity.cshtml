@@ -1,0 +1,31 @@
+﻿@model SearchCity
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+
+    <form method="post">
+
+        <div class="container">
+            <div class="form-group col-md-offset-3 col-md-5">
+                <h2>Select city</h2>
+                <select name="CityName" asp-for="CityName" class="form-control">
+                    <option asp-for="CityName" value="Sumy">Sumy</option>
+                    <option asp-for="CityName" value="Kyiv">Kyiv</option>
+                    <option asp-for="CityName" value="Dnipro">Dnipro</option>
+                    <option asp-for="CityName" value="Odessa">Odessa</option>
+                    <option asp-for="CityName" value="Lviv">Lviv</option>
+                    <option asp-for="CityName" value="Kharkiv">Kharkiv</option>
+                </select>
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group col-md-offset-3 col-md-5">
+                <button asp-controller="City" asp-action="SearchCityPost" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
