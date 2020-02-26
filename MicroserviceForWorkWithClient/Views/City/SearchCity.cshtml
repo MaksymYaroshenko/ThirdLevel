@@ -5,7 +5,6 @@
 }
 
 <div class="container">
-
     <form method="post">
 
         <div class="container">
@@ -15,7 +14,7 @@
                     <option asp-for="CityName" value="Sumy">Sumy</option>
                     <option asp-for="CityName" value="Kyiv">Kyiv</option>
                     <option asp-for="CityName" value="Dnipro">Dnipro</option>
-                    <option asp-for="CityName" value="Odessa">Odessa</option>
+                    <option asp-for="CityName" value="Odesa">Odesa</option>
                     <option asp-for="CityName" value="Lviv">Lviv</option>
                     <option asp-for="CityName" value="Kharkiv">Kharkiv</option>
                 </select>
@@ -24,7 +23,7 @@
         </div>
         <div class="container">
             <div class="form-group col-md-offset-3 col-md-5">
-                <button asp-controller="City" asp-action="SearchCityPost" class="btn btn-primary">Search</button>
+                <button asp-controller="City" asp-action="CityWeather" class="btn btn-primary">Search</button>
             </div>
         </div>
     </form>

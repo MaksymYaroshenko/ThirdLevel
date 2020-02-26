@@ -1,4 +1,5 @@
 ﻿using MicroserviceForWorkWithClient.Models;
+using MicroserviceForWorkWithClient.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroserviceForWorkWithClient.Controllers
@@ -11,7 +12,7 @@ namespace MicroserviceForWorkWithClient.Controllers
         [HttpGet]
         public IActionResult SearchCity()
         {
-            ViewBag.Title = "Page with automobiles";
+            ViewBag.Title = "Select City";
             var viewModel = new SearchCity();
             return View(viewModel);
         }
@@ -24,9 +25,13 @@ namespace MicroserviceForWorkWithClient.Controllers
 
         // POST: api/City
         [HttpPost]
-        public IActionResult SearchCityPost()
+        public IActionResult CityWeather()
         {
-            return View();
+            string city = HttpContext.Request.Form["CityName"].ToString();
+            WeatherForecastRepository weatherForecastRepository = new WeatherForecastRepository();
+            City weatherData = weatherForecastRepository.GetWeather(city);
+            ViewBag.Title = "Selected City";
+            return View(weatherData);
         }
     }
 }
