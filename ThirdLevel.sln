@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MircroserviceForWorkWithDB", "MircroserviceForWorkWithDB\MircroserviceForWorkWithDB.csproj", "{FE48F9C6-E82B-4524-A097-472A10BC4E24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MircroserviceForWorkWithDB", "MircroserviceForWorkWithDB\MircroserviceForWorkWithDB.csproj", "{FE48F9C6-E82B-4524-A097-472A10BC4E24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroserviceForWorkWithClient", "MicroserviceForWorkWithClient\MicroserviceForWorkWithClient.csproj", "{D561640F-86BE-44CB-A78F-5D5813BB35C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroserviceForWorkWithClient", "MicroserviceForWorkWithClient\MicroserviceForWorkWithClient.csproj", "{D561640F-86BE-44CB-A78F-5D5813BB35C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C867CADB-3DD0-4223-88DD-9D0B393535AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{26A025CD-70A2-4171-A206-80EC291467BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroserviceForWorkWithClient.Tests", "MicroserviceForWorkWithClient.Tests\MicroserviceForWorkWithClient.Tests.csproj", "{3ED7CE29-E9A2-4BA8-AA74-86846E67F6D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroserviceForWorkWithDB.Tests", "MicroserviceForWorkWithDB.Tests\MicroserviceForWorkWithDB.Tests.csproj", "{E6F1C28C-8D68-4EB4-9AD5-E89AF4E0EEE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +29,23 @@ Global
 		{D561640F-86BE-44CB-A78F-5D5813BB35C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D561640F-86BE-44CB-A78F-5D5813BB35C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D561640F-86BE-44CB-A78F-5D5813BB35C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ED7CE29-E9A2-4BA8-AA74-86846E67F6D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ED7CE29-E9A2-4BA8-AA74-86846E67F6D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ED7CE29-E9A2-4BA8-AA74-86846E67F6D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ED7CE29-E9A2-4BA8-AA74-86846E67F6D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F1C28C-8D68-4EB4-9AD5-E89AF4E0EEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F1C28C-8D68-4EB4-9AD5-E89AF4E0EEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F1C28C-8D68-4EB4-9AD5-E89AF4E0EEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F1C28C-8D68-4EB4-9AD5-E89AF4E0EEE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE48F9C6-E82B-4524-A097-472A10BC4E24} = {C867CADB-3DD0-4223-88DD-9D0B393535AE}
+		{D561640F-86BE-44CB-A78F-5D5813BB35C4} = {C867CADB-3DD0-4223-88DD-9D0B393535AE}
+		{3ED7CE29-E9A2-4BA8-AA74-86846E67F6D6} = {26A025CD-70A2-4171-A206-80EC291467BC}
+		{E6F1C28C-8D68-4EB4-9AD5-E89AF4E0EEE8} = {26A025CD-70A2-4171-A206-80EC291467BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D1A6404-5D22-44B3-B592-0D8B3DE031DB}
