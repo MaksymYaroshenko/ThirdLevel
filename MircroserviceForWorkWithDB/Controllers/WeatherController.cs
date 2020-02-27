@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MircroserviceForWorkWithDB.Database;
 using MircroserviceForWorkWithDB.Database.Entities;
 using System.Collections.Generic;
@@ -11,15 +12,18 @@ namespace MircroserviceForWorkWithDB.Controllers
     public class WeatherController : ControllerBase
     {
         DatabaseContext db;
+        private readonly ILogger _logger;
 
-        public WeatherController()
+        public WeatherController(ILoggerFactory logFactory)
         {
             db = new DatabaseContext();
+            _logger = logFactory.CreateLogger<WeatherController>();
         }
 
         [HttpGet("{city}", Name = "Get")]
         public City Get(string city)
         {
+            _logger.LogInformation($"Started finding {city}'s data");
             var list = new List<City>();
             foreach (var cityName in db.City)
             {
@@ -27,9 +31,15 @@ namespace MircroserviceForWorkWithDB.Controllers
                     list.Add(cityName);
             }
             if (list.Count > 0)
+            {
+                _logger.LogInformation($"Return {city}'s data");
                 return list.Last();
+            }
             else
+            {
+                _logger.LogError("City wasn't find in the database");
                 return null;
+            }
         }
     }
 }
