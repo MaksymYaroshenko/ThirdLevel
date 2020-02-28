@@ -22,7 +22,7 @@ namespace MicroserviceForWorkWithClient.Repository
             });
             ILogger logger = loggerFactory.CreateLogger<WeatherForecastRepository>();
             logger.LogInformation($"Started getting data for {city} from database");
-            var client = new RestClient($"http://localhost:50000/api/weather/{city}");
+            var client = new RestClient($"http://localhost:32795/api/weather/{city}");
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             if (response.IsSuccessful)
