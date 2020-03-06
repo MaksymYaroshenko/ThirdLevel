@@ -41,14 +41,23 @@ namespace MicroserviceForWorkWithClient.Controllers
                 string city = HttpContext.Request.Form["CityName"].ToString();
                 WeatherForecastRepository weatherForecastRepository = new WeatherForecastRepository();
                 City weatherData = weatherForecastRepository.GetWeather(city);
-                ViewBag.Title = "Selected City";
-                _logger.LogInformation($"Repsonse for {city}");
-                return View(weatherData);
+                if (weatherData != null)
+                {
+                    ViewBag.Title = "Selected City";
+                    _logger.LogInformation($"Repsonse for {city}");
+                    return View(weatherData);
+                }
+                else
+                {
+                    ViewBag.Title = "Selected City";
+                    _logger.LogError("Weather data is null");
+                    return View("CityNotFound");
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError("Request for selected city exception: " + ex.ToString());
-                return View();
+                return View("CityNotFound");
             }
         }
     }

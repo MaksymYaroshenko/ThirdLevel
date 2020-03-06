@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="container">
+        <div class="form-group col-md-offset-3 col-md-12">
+            <h2>Weather Forecast for the selected city wasn't get.</h2>
+            <h2>Please, try again.</h2>
+            <div class="container">
+                <div class="form-group col-md-offset-3 col-md-5">
+                    <form method="get">
+                        <button asp-controller="City" asp-action="SearchCity" class="btn btn-primary">Return</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
