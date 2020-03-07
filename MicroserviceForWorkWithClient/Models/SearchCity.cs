@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MicroserviceForWorkWithClient.Models
 {
@@ -6,5 +7,7 @@ namespace MicroserviceForWorkWithClient.Models
     {
         [Display(Name = "City Name")]
         public string CityName { get; set; }
+
+        public List<string> CitiesList = new List<string>();
     }
 }
