@@ -41,5 +41,24 @@ namespace MircroserviceForWorkWithDB.Controllers
                 return null;
             }
         }
+
+        [HttpGet]
+        public List<string> GetCities()
+        {
+            List<string> allCities = new List<string>();
+            foreach (var b in db.City)
+            {
+                allCities.Add(b.Name);
+            }
+            if (allCities.Count > 0)
+            {
+                var uniqeCities = allCities.Distinct().ToList();
+                return uniqeCities;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

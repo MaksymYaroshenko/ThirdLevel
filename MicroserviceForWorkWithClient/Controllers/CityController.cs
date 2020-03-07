@@ -2,6 +2,9 @@
 using MicroserviceForWorkWithClient.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 using System;
 
 namespace MicroserviceForWorkWithClient.Controllers
@@ -21,9 +24,44 @@ namespace MicroserviceForWorkWithClient.Controllers
         [HttpGet]
         public IActionResult SearchCity()
         {
-            ViewBag.Title = "Select City";
-            var viewModel = new SearchCity();
-            return View(viewModel);
+            var client = new RestClient($"http://localhost:40000/api/weather");
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            if (response.IsSuccessful)
+            {
+                _logger.LogInformation("Response is successful");
+                var content = JsonConvert.DeserializeObject<JToken>(response.Content);
+                if (content != null)
+                {
+                    var viewModel = new SearchCity();
+                    foreach (var cityName in content.Root)
+                        viewModel.CitiesList.Add(cityName.ToString());
+                    if (viewModel.CitiesList.Count > 0)
+                    {
+                        _logger.LogInformation("Got cities list");
+                        ViewBag.Title = "Select City";
+                        return View(viewModel);
+                    }
+                    else
+                    {
+                        _logger.LogError("Cities list is empty");
+                        ViewBag.Title = "Error 404...";
+                        return View("EmptyCitiesList");
+                    }
+                }
+                else
+                {
+                    _logger.LogError("Response is null");
+                    ViewBag.Title = "Error 404...";
+                    return View("EmptyCitiesList");
+                }
+            }
+            else
+            {
+                _logger.LogError("Response was not successful");
+                ViewBag.Title = "Error 404..";
+                return View("EmptyCitiesList");
+            }
         }
 
         // GET: api/City/5
