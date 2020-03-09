@@ -1,6 +1,6 @@
 ﻿using MicroserviceForWorkWithClient.Models;
 using Microsoft.Extensions.Logging;
-using MircroserviceForWorkWithDB.WeatherDataModels;
+using MircroserviceForWorkWithClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -22,7 +22,7 @@ namespace MicroserviceForWorkWithClient.Repository
             });
             ILogger logger = loggerFactory.CreateLogger<WeatherForecastRepository>();
             logger.LogInformation($"Started getting data for {city} from database");
-            var client = new RestClient($"http://localhost:40000/api/weather/{city}");
+            var client = new RestClient(ConfigurationManager.AppSetting["MicroserviceForWorkWithDB:SearchCityRequest"] + $"/{city}");
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             if (response.IsSuccessful)
