@@ -1,11 +1,11 @@
-﻿using MircroserviceForWorkWithDB.Config;
+﻿using Microsoft.Extensions.Configuration;
+using MircroserviceForWorkWithDB.Config;
 using MircroserviceForWorkWithDB.Database;
 using MircroserviceForWorkWithDB.Database.Entities;
 using MircroserviceForWorkWithDB.WeatherDataModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System.Collections.Generic;
 
 namespace MircroserviceForWorkWithDB.Repository
 {
@@ -20,14 +20,13 @@ namespace MircroserviceForWorkWithDB.Repository
 
         public void GetWeatherData()
         {
-            List<string> cities = new List<string> { "Sumy", "Kyiv", "Dnipro", "Odesa", "Lviv", "Kharkiv" };
+            var cities = ConfigurationManager.AppSetting.GetSection("City:CitiesArray").Get<string[]>();
             string IDOWeather = Constants.OPEN_WEATHER_APPID;
             RestClient client;
             RestRequest request;
             foreach (var city in cities)
             {
-                //logger.LogInformation($"Started making request for {city}'s data");
-                client = new RestClient($"http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&APPID={IDOWeather}");
+                client = new RestClient(ConfigurationManager.AppSetting["OpenWeatherApi:WeatherRequestFirstPart"] + $"{city}" + ConfigurationManager.AppSetting["OpenWeatherApi:WeatherRequestSecondPart"] + $"{IDOWeather}");
                 request = new RestRequest(Method.GET);
                 IRestResponse response = client.Execute(request);
 

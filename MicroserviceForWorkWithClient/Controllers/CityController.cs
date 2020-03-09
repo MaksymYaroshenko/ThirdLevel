@@ -2,6 +2,7 @@
 using MicroserviceForWorkWithClient.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MircroserviceForWorkWithClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -24,7 +25,7 @@ namespace MicroserviceForWorkWithClient.Controllers
         [HttpGet]
         public IActionResult SearchCity()
         {
-            var client = new RestClient($"http://localhost:40000/api/weather");
+            var client = new RestClient(ConfigurationManager.AppSetting["MicroserviceForWorkWithDB:SearchCityRequest"]);
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             if (response.IsSuccessful)

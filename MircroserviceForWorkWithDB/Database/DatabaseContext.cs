@@ -9,9 +9,8 @@ namespace MircroserviceForWorkWithDB.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"data source=DESKTOP-KC6P8SG\MSSQLSERVER1; 
-                initial catalog=WeatherForecastMicroservice;persist security info=True;
-                user=Weather;password=weather");
+            string connectionString = ConfigurationManager.AppSetting["Database:ConnectionString"];
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 }
