@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MircroserviceForWorkWithClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Polly.CircuitBreaker;
 using RestSharp;
 using System;
 
@@ -25,44 +26,57 @@ namespace MicroserviceForWorkWithClient.Controllers
         [HttpGet]
         public IActionResult SearchCity()
         {
-            var client = new RestClient(ConfigurationManager.AppSetting["MicroserviceForWorkWithDB:SearchCityRequest"]);
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-            if (response.IsSuccessful)
+            try
             {
-                _logger.LogInformation("Response is successful");
-                var content = JsonConvert.DeserializeObject<JToken>(response.Content);
-                if (content != null)
+                var client = new RestClient(ConfigurationManager.AppSetting["MicroserviceForWorkWithDB:SearchCityRequest"]);
+                var request = new RestRequest(Method.GET);
+                IRestResponse response = client.Execute(request);
+                if (response.IsSuccessful)
                 {
-                    var viewModel = new SearchCity();
-                    foreach (var cityName in content.Root)
-                        viewModel.CitiesList.Add(cityName.ToString());
-                    if (viewModel.CitiesList.Count > 0)
+                    _logger.LogInformation("Response is successful");
+                    var content = JsonConvert.DeserializeObject<JToken>(response.Content);
+                    if (content != null)
                     {
-                        _logger.LogInformation("Got cities list");
-                        ViewBag.Title = "Select City";
-                        return View(viewModel);
+                        var viewModel = new SearchCity();
+                        foreach (var cityName in content.Root)
+                            viewModel.CitiesList.Add(cityName.ToString());
+                        if (viewModel.CitiesList.Count > 0)
+                        {
+                            _logger.LogInformation("Got cities list");
+                            ViewBag.Title = "Select City";
+                            return View(viewModel);
+                        }
+                        else
+                        {
+                            _logger.LogError("Cities list is empty");
+                            ViewBag.Title = "Error 404...";
+                            return View("EmptyCitiesList");
+                        }
                     }
                     else
                     {
-                        _logger.LogError("Cities list is empty");
+                        _logger.LogError("Response is null");
                         ViewBag.Title = "Error 404...";
                         return View("EmptyCitiesList");
                     }
                 }
                 else
                 {
-                    _logger.LogError("Response is null");
-                    ViewBag.Title = "Error 404...";
+                    _logger.LogError("Response was not successful");
+                    ViewBag.Title = "Error 404..";
                     return View("EmptyCitiesList");
                 }
             }
-            else
+            catch (BrokenCircuitException)
             {
-                _logger.LogError("Response was not successful");
-                ViewBag.Title = "Error 404..";
-                return View("EmptyCitiesList");
+                HandleBrokenCircuitException();
             }
+            ViewBag.Title = "Error 404...";
+            return View("EmptyCitiesList");
+        }
+        private void HandleBrokenCircuitException()
+        {
+            _logger.LogError("Basket.api is in a circuit-opened mode");
         }
 
         // GET: api/City/5
@@ -92,6 +106,12 @@ namespace MicroserviceForWorkWithClient.Controllers
                     _logger.LogError("Weather data is null");
                     return View("CityNotFound");
                 }
+            }
+            catch (BrokenCircuitException)
+            {
+                HandleBrokenCircuitException();
+                ViewBag.Title = "Error 404...";
+                return View("EmptyCitiesList");
             }
             catch (Exception ex)
             {
